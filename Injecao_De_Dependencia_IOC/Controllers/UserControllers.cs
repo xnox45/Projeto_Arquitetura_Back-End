@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Template.Application.Interface;
 
-namespace Injecao_De_Dependencia_IOC.Controllers
+namespace Api.Project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

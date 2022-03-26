@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Template.IoC;
 
-namespace Injecao_De_Dependencia_IOC
+namespace Api.Project
 {
     public class Startup
     {
