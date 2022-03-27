@@ -37,8 +37,8 @@ namespace Api.Project.Controllers
             User user = new User()
             {
                 UserId = new Guid()
-                ,Name = "Teste Controller"
-                ,Mail = "TestController@example.com"
+               ,Name = "Teste Controller"
+               ,Mail = "TestController@example.com"
             };
 
             _context.Users.Add(user);
