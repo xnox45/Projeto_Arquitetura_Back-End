@@ -8,9 +8,7 @@ namespace Template.IoC
     {
         public static void RegisterService(IServiceCollection services)
         {
-
             services.AddScoped<IUserService, UserService>();
-
         }
     }
 }
