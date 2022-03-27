@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Template.Data.Context;
 
 namespace Template.Data.Migrations
 {
     [DbContext(typeof(TemplateContext))]
-    partial class TemplateContextModelSnapshot : ModelSnapshot
+    [Migration("20220327203214_Fields-Entity")]
+    partial class FieldsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,8 @@ namespace Template.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("UserId");
 
                     b.ToTable("Users");
 
@@ -50,10 +53,10 @@ namespace Template.Data.Migrations
                         new
                         {
                             Id = new Guid("0b214de7-8958-4956-8eed-28f9ba2c47c6"),
-                            CreationDate = new DateTime(2022, 3, 27, 17, 39, 16, 594, DateTimeKind.Local).AddTicks(442),
+                            CreationDate = new DateTime(2022, 3, 27, 17, 32, 13, 206, DateTimeKind.Local).AddTicks(5627),
                             Mail = "userDefault@example.com",
                             Name = "User Default",
-                            UpdateDate = new DateTime(2022, 3, 27, 17, 39, 16, 598, DateTimeKind.Local).AddTicks(6482)
+                            UpdateDate = new DateTime(2022, 3, 27, 17, 32, 13, 210, DateTimeKind.Local).AddTicks(3793)
                         });
                 });
 #pragma warning restore 612, 618

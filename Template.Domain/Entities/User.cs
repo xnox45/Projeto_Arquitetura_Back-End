@@ -1,11 +1,10 @@
 ﻿using System;
+using Template.Domain.Models;
 
 namespace Template.Domain.Entities
 {
-    public class User
+    public class User : Entity
     {
-        public Guid UserId { get; set; }
-
         public string Name { get; set; }
 
         public string Mail { get; set; }

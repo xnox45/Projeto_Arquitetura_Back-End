@@ -24,9 +24,7 @@ namespace Api.Project.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            this._userService.Test();
-
-            return Ok("Ok");
+            return Ok(this._userService.Get());
         }
         
         [HttpPost]
@@ -36,9 +34,11 @@ namespace Api.Project.Controllers
 
             User user = new User()
             {
-                UserId = new Guid()
+                Id = new Guid()
                ,Name = "Teste Controller"
                ,Mail = "TestController@example.com"
+               ,CreationDate = DateTime.Now
+               ,UpdateDate = DateTime.Now
             };
 
             _context.Users.Add(user);

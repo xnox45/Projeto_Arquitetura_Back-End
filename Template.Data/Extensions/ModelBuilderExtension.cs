@@ -9,9 +9,11 @@ namespace Template.Data.Extensions
         public static ModelBuilder SeedData(this ModelBuilder builder)//O "this" faz com que ja receba o objeto que está chamando o metodo
         {
             builder.Entity<User>().HasData(new User { 
-                UserId = Guid.Parse("0b214de7-8958-4956-8eed-28f9ba2c47c6"), 
+                Id = Guid.Parse("0b214de7-8958-4956-8eed-28f9ba2c47c6"), 
                 Name = "User Default",
-                Mail = "userDefault@example.com"
+                Mail = "userDefault@example.com",
+                CreationDate = DateTime.Now,
+                UpdateDate = DateTime.Now
             });
 
             return builder;

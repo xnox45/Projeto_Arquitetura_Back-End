@@ -14,7 +14,7 @@ namespace Template.Data.Mappings
         //Configuração da tabela usuario
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x => x.UserId);//Primary Key
+            builder.HasKey(x => x.Id);//Primary Key
             builder.Property(x => x.Name).IsRequired();//Not Null
             builder.Property(x => x.Name).HasMaxLength(40);//Not Null
         }

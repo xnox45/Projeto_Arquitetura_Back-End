@@ -1,7 +1,10 @@
-﻿namespace Template.Application.Interface
+﻿using System.Collections.Generic;
+using Template.Application.ViewModel;
+
+namespace Template.Application.Interface
 {
     public interface IUserService
     {
-        void Test();
+        List<UserViewModel> Get();
     }
 }
