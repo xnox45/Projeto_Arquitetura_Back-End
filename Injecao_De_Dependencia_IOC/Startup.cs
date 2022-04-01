@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Template.Application.AutoMapper;
 using Template.Data.Context;
 using Template.IoC;
 
@@ -32,6 +33,8 @@ namespace Api.Project
 
             //Faz com que a services entenda interfaces de outros projetos
             NativeInjector.RegisterService(services);
+
+            services.AddAutoMapper(typeof(AutoMapperSetup));
 
             services.AddSwaggerGen(c =>
             {
