@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using Template.Domain.Entities;
+using Template.Domain.Models;
 
 namespace Template.Data.Extensions
 {
@@ -15,6 +17,42 @@ namespace Template.Data.Extensions
                 CreationDate = DateTime.Now,
                 UpdateDate = DateTime.Now
             });
+
+            return builder;
+        }
+
+        public static ModelBuilder ConfigureGlobalApplication(this ModelBuilder builder)
+        {
+            foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    switch (property.Name)
+                    {
+                        case nameof(Entity.Id):
+                            property.IsKey();
+                            break;
+
+                        case nameof(Entity.CreationDate):
+                            property.IsNullable = false;
+                            property.SetDefaultValue(DateTime.Now);
+                            break;
+
+                        case nameof(Entity.UpdateDate):
+                            property.IsNullable = false;
+                            property.SetDefaultValue(DateTime.Now);
+                            break;
+                        
+                        case nameof(Entity.DeletionDate):
+                            property.IsNullable = true;
+                            property.SetDefaultValue(null);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
 
             return builder;
         }

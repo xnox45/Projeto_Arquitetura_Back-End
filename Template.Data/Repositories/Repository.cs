@@ -42,6 +42,19 @@ namespace Template.Data.Repositories
             }
         }
 
+        public TEntity Create(TEntity entity)
+        {
+            DbSet.Add(entity);
+
+            Save();
+
+            return entity;
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
 
         public void Dispose()
         {

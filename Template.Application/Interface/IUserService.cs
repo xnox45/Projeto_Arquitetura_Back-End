@@ -6,5 +6,7 @@ namespace Template.Application.Interface
     public interface IUserService
     {
         List<UserViewModel> Get();
+
+        bool Post(UserViewModel model);
     }
 }

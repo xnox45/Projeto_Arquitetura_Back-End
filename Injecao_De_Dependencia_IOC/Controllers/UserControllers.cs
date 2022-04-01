@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using Template.Application.Interface;
+using Template.Application.ViewModel;
 using Template.Data.Context;
 using Template.Domain.Entities;
 
@@ -28,24 +29,11 @@ namespace Api.Project.Controllers
         }
         
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(UserViewModel model)
         {
+            bool result = this._userService.Post(model);
 
-
-            User user = new User()
-            {
-                Id = new Guid()
-               ,Name = "Teste Controller"
-               ,Mail = "TestController@example.com"
-               ,CreationDate = DateTime.Now
-               ,UpdateDate = DateTime.Now
-            };
-
-            _context.Users.Add(user);
-
-            _context.SaveChanges();
-
-            return Ok("Ok");
+            return Ok(result.ToString() + "\nUsuario salvo");
         }
     }
 }

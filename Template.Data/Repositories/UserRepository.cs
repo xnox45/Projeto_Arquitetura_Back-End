@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Template.Application.ViewModel;
 using Template.Data.Context;
 using Template.Domain.Entities;
 using Template.Domain.Interfaces;

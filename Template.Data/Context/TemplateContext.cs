@@ -28,6 +28,8 @@ namespace Template.Data.Context
 
             modelBuilder.SeedData();
 
+            modelBuilder.ConfigureGlobalApplication();
+
             base.OnModelCreating(modelBuilder);
         }
     }

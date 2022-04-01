@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Template.Application.Interface;
 using Template.Application.ViewModel;
 using Template.Domain.Entities;
@@ -25,6 +26,20 @@ namespace Template.Application.Service
                 userViewModels.Add(new UserViewModel {Id = item.Id, Name = item.Name, Mail = item.Mail});
 
             return userViewModels;
+        }
+
+        public bool Post(UserViewModel model)
+        {
+            User user = new User()
+            {
+                Id = new Guid(),
+                Name = model.Name,
+                Mail = model.Mail,
+            };
+
+            _userRepository.Create(user);
+
+            return true;
         }
     }
 }
