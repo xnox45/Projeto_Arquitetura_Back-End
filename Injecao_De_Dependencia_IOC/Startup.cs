@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
 using Template.Application.AutoMapper;
 using Template.Data.Context;
 using Template.IoC;
@@ -34,12 +36,26 @@ namespace Api.Project
             //Faz com que a services entenda interfaces de outros projetos
             NativeInjector.RegisterService(services);
 
+            //chamando configurações do automapper
             services.AddAutoMapper(typeof(AutoMapperSetup));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api.Project", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Api.Project", 
+                    Version = "v1" ,
+                    Description = "Projeto de arquitetura Back-End e Angular no front-End",
+                    Contact = new OpenApiContact{
+                        Name = "Frederick Aquino",
+                        Email = "xnox.45@hotmail.com",
+                        Url = new Uri("https://www.linkedin.com/in/frederick-aquino-2913971a0")
+                    }
+                });
+
+                string xmlPath = Path.Combine("Extras", "API_Doc.xml");
+                c.IncludeXmlComments(xmlPath);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

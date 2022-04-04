@@ -26,7 +26,7 @@ namespace Api.Project.Controllers
         public IActionResult Get()
         {
             return Ok(this._userService.Get());
-        }
+        } 
         
         [HttpPost]
         public IActionResult Post(UserViewModel model)

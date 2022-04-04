@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.IoC", "Template.Io
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9BAB5D93-1759-4FA9-9C25-6B6E6566502C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Domain", "Template.Domain\Template.Domain.csproj", "{D596A76A-E487-4138-8A3A-A4D4BE921119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "Template.Domain\Template.Domain.csproj", "{D596A76A-E487-4138-8A3A-A4D4BE921119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Data", "Template.Data\Template.Data.csproj", "{8CE82D16-9B37-4187-B7A4-7349CC6657C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Data", "Template.Data\Template.Data.csproj", "{8CE82D16-9B37-4187-B7A4-7349CC6657C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

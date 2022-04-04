@@ -31,7 +31,7 @@ namespace Template.Application.Service
             userViewModels = _mapper.Map<List<UserViewModel>>(users);
 
             return userViewModels;
-        }
+        } 
 
         public bool Post(UserViewModel model)
         {

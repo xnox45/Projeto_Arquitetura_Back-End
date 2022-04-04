@@ -9,7 +9,7 @@ using Template.Domain.Entities;
 
 namespace Template.Application.AutoMapper
 {
-    public class AutoMapperSetup : Profile
+    public class AutoMapperSetup : Profile //É preciso criar uma classe de setup para que possamos informar qual classe vai passar pra qual e chama-la no startup
     {
         public AutoMapperSetup()
         {
