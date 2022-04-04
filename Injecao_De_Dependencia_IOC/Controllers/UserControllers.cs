@@ -35,5 +35,34 @@ namespace Api.Project.Controllers
 
             return Ok(result.ToString() + "\nUsuario salvo");
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(string id)
+        {
+            try
+            {
+                if (!Guid.TryParse(id, out Guid userID))
+                    throw new Exception("UserID is not valid");
+
+                return Ok(this._userService.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        } 
+        
+        [HttpPut]
+        public IActionResult Update(UserViewModel model)
+        {
+            try
+            {
+                return Ok(_userService.Put(model));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

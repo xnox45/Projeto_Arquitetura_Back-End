@@ -48,5 +48,27 @@ namespace Template.Application.Service
 
             return true;
         }
+
+        public UserViewModel GetById(string id)
+        {
+            UserViewModel model = _mapper.Map<UserViewModel>(_userRepository.GetById(Guid.Parse(id)));
+
+            if (model == null)
+                throw new Exception("User not found");
+
+            return model;
+        }
+
+        public bool Put(UserViewModel model)
+        {
+            User user = _userRepository.GetById(model.Id);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            user = _mapper.Map<User>(model);
+
+            return _userRepository.Put(user);
+        }
     }
 }

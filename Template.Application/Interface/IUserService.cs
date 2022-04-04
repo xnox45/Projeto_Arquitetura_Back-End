@@ -8,5 +8,9 @@ namespace Template.Application.Interface
         List<UserViewModel> Get();
 
         bool Post(UserViewModel model);
+
+        public UserViewModel GetById(string id);
+
+        public bool Put(UserViewModel model);
     }
 }

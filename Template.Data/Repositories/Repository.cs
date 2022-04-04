@@ -34,7 +34,19 @@ namespace Template.Data.Repositories
         {
             try
             {
-                return DbSet.Where(where);
+                return DbSet.AsNoTracking().Where(where);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
+        public TEntity Find(Expression<Func<TEntity, bool>> where)//(Expression<Func<TEntity, bool>>)Faz com que para chamar o metodo tenha que usar uma Expressão Lambda
+        {
+            try
+            {
+                return DbSet.AsNoTracking().FirstOrDefault(where);//O AsNoTracking tbm serve para que possamos atualizar um dado
             }
             catch
             {
@@ -51,9 +63,36 @@ namespace Template.Data.Repositories
             return entity;
         }
 
-        public void Save()
+        public bool Update(TEntity model)
         {
-            _context.SaveChanges();
+            try
+            {
+                var entry = _context.Entry(model);
+
+                DbSet.Attach(model);
+
+                entry.State = EntityState.Modified;
+
+                return Save() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int Save()
+        {
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Dispose()

@@ -19,5 +19,15 @@ namespace Template.Data.Repositories
         {
             return Query(x => x.DeletionDate == null);
         }
+
+        public User GetById(Guid id)
+        {
+            return Find(x => x.Id == id && x.DeletionDate == null);
+        }
+
+        public bool Put(User user)
+        {
+            return Update(user);
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace Template.Domain.Interfaces
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where);
 
         TEntity Create(TEntity entity);
+
+        TEntity Find(Expression<Func<TEntity, bool>> where);
     }
 }
