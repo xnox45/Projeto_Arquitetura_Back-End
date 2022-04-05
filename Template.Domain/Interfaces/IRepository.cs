@@ -11,5 +11,7 @@ namespace Template.Domain.Interfaces
         TEntity Create(TEntity entity);
 
         TEntity Find(Expression<Func<TEntity, bool>> where);
+
+        public bool Delete(TEntity model);
     }
 }

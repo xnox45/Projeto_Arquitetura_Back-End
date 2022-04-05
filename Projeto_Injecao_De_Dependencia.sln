@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "Template
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Data", "Template.Data\Template.Data.csproj", "{8CE82D16-9B37-4187-B7A4-7349CC6657C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Auth", "Template.Auth\Template.Auth.csproj", "{8462BAA8-2831-4B26-9F40-85E448BC7D74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8CE82D16-9B37-4187-B7A4-7349CC6657C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE82D16-9B37-4187-B7A4-7349CC6657C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE82D16-9B37-4187-B7A4-7349CC6657C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8462BAA8-2831-4B26-9F40-85E448BC7D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8462BAA8-2831-4B26-9F40-85E448BC7D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8462BAA8-2831-4B26-9F40-85E448BC7D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8462BAA8-2831-4B26-9F40-85E448BC7D74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{3EFAF883-4229-4E96-B181-0F0A545EF36D} = {7140F124-63C2-47C5-AC38-8FBF3D6E430B}
 		{D596A76A-E487-4138-8A3A-A4D4BE921119} = {9BAB5D93-1759-4FA9-9C25-6B6E6566502C}
 		{8CE82D16-9B37-4187-B7A4-7349CC6657C9} = {8453B8E3-09D5-4394-976A-150F34A0949F}
+		{8462BAA8-2831-4B26-9F40-85E448BC7D74} = {7140F124-63C2-47C5-AC38-8FBF3D6E430B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {586D0A42-96ED-40C6-B9DB-1D2A77B35F8B}

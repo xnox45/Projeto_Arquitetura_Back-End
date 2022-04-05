@@ -15,7 +15,7 @@ namespace Template.Application.AutoMapper
         {
             #region ViewModelToDomain
 
-            CreateMap<UserViewModel, User>();
+            CreateMap<UserViewModel, User>().ForMember(x => x.CreationDate, opt => opt.Ignore());
 
             #endregion
 

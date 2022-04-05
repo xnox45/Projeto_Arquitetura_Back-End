@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using Template.Application.Interface;
 using Template.Application.ViewModel;
 using Template.Data.Context;
-using Template.Domain.Entities;
 
 namespace Api.Project.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]//Authorize defini que todos os metodos dessa classe são privados mas tambem podemos colocar apenas para um metodo ser
     public class UserControllers : ControllerBase
     {
         private readonly IUserService _userService;
@@ -36,7 +36,7 @@ namespace Api.Project.Controllers
             return Ok(result.ToString() + "\nUsuario salvo");
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] //Permiti passar parametro para um metodo get
         public IActionResult GetById(string id)
         {
             try
@@ -63,6 +63,25 @@ namespace Api.Project.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        } 
+        
+        [HttpDelete]
+        public IActionResult Delete(string id)
+        {
+            try
+            {
+                return Ok(_userService.Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("Auth"), AllowAnonymous]//AllowAnonymous defini que o metodo é publico e qualquer um pode acessar
+        public IActionResult Auth(UserAuthenticateRequestViewModel model)
+        {
+            return Ok(this._userService.Authenticate(model));
         }
     }
 }

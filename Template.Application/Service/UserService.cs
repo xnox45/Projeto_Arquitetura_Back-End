@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Template.Application.Interface;
 using Template.Application.ViewModel;
+using Template.Auth.Services;
 using Template.Domain.Entities;
 using Template.Domain.Interfaces;
 
@@ -66,9 +67,34 @@ namespace Template.Application.Service
             if (user == null)
                 throw new Exception("User not found");
 
-            user = _mapper.Map<User>(model);
+          //user = _mapper.Map<User>(model) forma errada de realizar update com AutoMapper ja que dessa forma ele praticamente instacia um novo objeto e passa valores padrão para os objetos sem valores 
+            user = _mapper.Map(model, user);
 
             return _userRepository.Put(user);
+        }
+        
+        public bool Delete(string id)
+        {
+            User user = _userRepository.GetById(Guid.Parse(id));
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            return _userRepository.Delete(user);
+        }
+
+        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel userRequest)
+        {
+            User user = _userRepository.Find(x => x.DeletionDate == null && x.Mail.ToLower() == userRequest.Mail.ToLower());
+
+            if(user == null)
+                throw new Exception("User not found");
+
+            string token = TokenService.GenerateToken(user);
+
+            UserViewModel model = _mapper.Map<UserViewModel>(user);
+
+            return new UserAuthenticateResponseViewModel(model, token);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Template.Data.Repositories
         {
             _context = context;
         }
-   
+
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where)//(Expression<Func<TEntity, bool>>)Faz com que para chamar o metodo tenha que usar uma Expressão Lambda
         {
             try
@@ -41,7 +41,7 @@ namespace Template.Data.Repositories
                 throw;
             }
         }
-        
+
         public TEntity Find(Expression<Func<TEntity, bool>> where)//(Expression<Func<TEntity, bool>>)Faz com que para chamar o metodo tenha que usar uma Expressão Lambda
         {
             try
@@ -67,6 +67,11 @@ namespace Template.Data.Repositories
         {
             try
             {
+                if (model is Entity)
+                {
+                    (model as Entity).UpdateDate = DateTime.Now;
+                }
+
                 var entry = _context.Entry(model);
 
                 DbSet.Attach(model);
@@ -92,7 +97,35 @@ namespace Template.Data.Repositories
 
                 throw;
             }
-            
+
+        }
+
+        public bool Delete(TEntity model)
+        {
+            try
+            {
+                if (model is Entity)
+                {
+                    (model as Entity).DeletionDate = DateTime.Now;
+                    var _entry = _context.Entry(model);
+
+                    DbSet.Attach(model);
+
+                    _entry.State = EntityState.Modified;
+                }
+                else
+                {
+                    var _entry = _context.Entry(model);
+                    DbSet.Attach(model);
+                    _entry.State = EntityState.Deleted;
+                }
+
+                return Save() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

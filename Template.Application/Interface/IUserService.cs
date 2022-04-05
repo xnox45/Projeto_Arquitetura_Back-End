@@ -12,5 +12,9 @@ namespace Template.Application.Interface
         public UserViewModel GetById(string id);
 
         public bool Put(UserViewModel model);
+        
+        public bool Delete(string id);
+
+        UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel userRequest);
     }
 }
