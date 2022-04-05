@@ -2,6 +2,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using Template.Auth.Models;
 using Template.Domain.Entities;
@@ -33,5 +34,12 @@ namespace Template.Auth.Services
             return tokenHandler.WriteToken(token);
         }
 
+        //Traz informações do token
+        public static string GetValueFromClaim(IIdentity identity, string field)
+        {
+            ClaimsIdentity claims = identity as ClaimsIdentity;//Conversão
+
+            return claims.FindFirst(field).Value;
+        }
     }
 }

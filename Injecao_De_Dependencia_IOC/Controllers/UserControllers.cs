@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using Template.Application.Interface;
 using Template.Application.ViewModel;
+using Template.Auth.Services;
 using Template.Data.Context;
+using Template.Domain.Language;
 
 namespace Api.Project.Controllers
 {
@@ -25,10 +28,17 @@ namespace Api.Project.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(this._userService.Get());
+            try
+            {
+                return Ok(this._userService.Get());
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         } 
         
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Post(UserViewModel model)
         {
             bool result = this._userService.Post(model);
@@ -42,7 +52,7 @@ namespace Api.Project.Controllers
             try
             {
                 if (!Guid.TryParse(id, out Guid userID))
-                    throw new Exception("UserID is not valid");
+                    throw new Exception(Exceptions.Ex0002);
 
                 return Ok(this._userService.GetById(id));
             }
@@ -66,11 +76,14 @@ namespace Api.Project.Controllers
         } 
         
         [HttpDelete]
-        public IActionResult Delete(string id)
+        public IActionResult Delete()
         {
             try
             {
-                return Ok(_userService.Delete(id));
+                //Pegando o Id do usuario direto da requisição, informando qual arfimação eu quero passar(Informei que o Id da classe User é o ClaimTypes.NameIdentifier)
+                string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);//Pegando informações do token, como Id, email e etc
+                
+                return Ok(_userService.Delete(userId));
             }
             catch (Exception ex)
             {
@@ -81,7 +94,14 @@ namespace Api.Project.Controllers
         [HttpPost("Auth"), AllowAnonymous]//AllowAnonymous defini que o metodo é publico e qualquer um pode acessar
         public IActionResult Auth(UserAuthenticateRequestViewModel model)
         {
-            return Ok(this._userService.Authenticate(model));
+            try
+            {
+                return Ok(this._userService.Authenticate(model));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
