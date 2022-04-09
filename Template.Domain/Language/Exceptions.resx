@@ -121,6 +121,12 @@
     <value>User not found</value>
   </data>
   <data name="Ex0002" xml:space="preserve">
-    <value>User  invalid</value>
+    <value>User invalid</value>
+  </data>
+  <data name="Ex0003" xml:space="preserve">
+    <value>Id invalid</value>
+  </data>
+  <data name="Ex0004" xml:space="preserve">
+    <value>Id With Value</value>
   </data>
 </root>

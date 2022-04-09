@@ -36,7 +36,7 @@ namespace Template.Domain.Language {
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Template.Domain.Language.Exceptions", typeof(Exceptions).Assembly);
@@ -51,7 +51,7 @@ namespace Template.Domain.Language {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,7 +59,7 @@ namespace Template.Domain.Language {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a User not found.
         /// </summary>
@@ -68,13 +68,31 @@ namespace Template.Domain.Language {
                 return ResourceManager.GetString("Ex0001", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a User  invalid.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a User invalid.
         /// </summary>
         public static string Ex0002 {
             get {
                 return ResourceManager.GetString("Ex0002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Id invalid.
+        /// </summary>
+        public static string Ex0003 {
+            get {
+                return ResourceManager.GetString("Ex0003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Id With Value.
+        /// </summary>
+        public static string Ex0004 {
+            get {
+                return ResourceManager.GetString("Ex0004", resourceCulture);
             }
         }
     }

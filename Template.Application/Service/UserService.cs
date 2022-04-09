@@ -44,6 +44,9 @@ namespace Template.Application.Service
             //    Mail = model.Mail,
             //};
 
+            if (model.Id != Guid.Empty)
+                throw new Exception(Exceptions.Ex0004);
+
             User user = _mapper.Map<User>(model);
 
             _userRepository.Create(user);
@@ -53,6 +56,9 @@ namespace Template.Application.Service
 
         public UserViewModel GetById(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new Exception(Exceptions.Ex0003);
+
             UserViewModel model = _mapper.Map<UserViewModel>(_userRepository.GetById(Guid.Parse(id)));
 
             if (model == null)
