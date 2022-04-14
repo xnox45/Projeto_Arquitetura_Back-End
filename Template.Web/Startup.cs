@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +17,7 @@ using Template.Auth.Models;
 using Template.Data.Context;
 using Template.IoC;
 
-namespace Api.Project
+namespace Template.Web
 {
     public class Startup
     {
@@ -29,7 +31,6 @@ namespace Api.Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Busca no AppSentings Json no Banco TemplateDB
             string connectionStringTemplateDb = Configuration.GetConnectionString("TemplateDb");
 
             services.AddControllers();
@@ -37,19 +38,17 @@ namespace Api.Project
             //Fazendo com que o banco utilize as configurações de outro projeto(Class Library)
             services.AddDbContext<TemplateContext>(opt => opt.UseSqlServer(connectionStringTemplateDb).EnableSensitiveDataLogging());
 
-            //Faz com que a services entenda interfaces de outros projetos
             NativeInjector.RegisterService(services);
-
-            //chamando configurações do automapper
-            services.AddAutoMapper(typeof(AutoMapperSetup));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "Api.Project", 
-                    Version = "v1" ,
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Api.Project",
+                    Version = "v1",
                     Description = "Projeto de arquitetura Back-End e Angular no front-End",
-                    Contact = new OpenApiContact{
+                    Contact = new OpenApiContact
+                    {
                         Name = "Frederick Aquino",
                         Email = "xnox.45@hotmail.com",
                         Url = new Uri("https://www.linkedin.com/in/frederick-aquino-2913971a0")
@@ -62,11 +61,11 @@ namespace Api.Project
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
-            services.AddAuthentication(x => 
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x => 
+            }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -78,6 +77,16 @@ namespace Api.Project
                     ValidateAudience = false
                 };
             });
+
+            //chamando configurações do automapper
+            services.AddAutoMapper(typeof(AutoMapperSetup));
+
+            services.AddControllersWithViews();
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,10 +96,22 @@ namespace Api.Project
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Injecao_De_Dependencia_IOC v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
+            }
+
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
@@ -99,7 +120,22 @@ namespace Api.Project
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

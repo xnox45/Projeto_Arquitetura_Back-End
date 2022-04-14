@@ -8,7 +8,7 @@ using Template.Auth.Services;
 using Template.Data.Context;
 using Template.Domain.Language;
 
-namespace Api.Project.Controllers
+namespace Template.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController, Authorize]//Authorize defini que todos os metodos dessa classe são privados mas tambem podemos colocar apenas para um metodo ser
