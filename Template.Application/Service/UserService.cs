@@ -56,7 +56,7 @@ namespace Template.Application.Service
 
         public UserViewModel GetById(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || Guid.TryParse(id, out Guid guid))
                 throw new Exception(Exceptions.Ex0003);
 
             UserViewModel model = _mapper.Map<UserViewModel>(_userRepository.GetById(Guid.Parse(id)));
@@ -69,6 +69,9 @@ namespace Template.Application.Service
 
         public bool Put(UserViewModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.Id.ToString()) || model.Id == new Guid())
+                throw new Exception(Exceptions.Ex0003);
+
             User user = _userRepository.GetById(model.Id);
 
             if (user == null)
@@ -82,6 +85,9 @@ namespace Template.Application.Service
         
         public bool Delete(string id)
         {
+            if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out Guid guid))
+                throw new Exception("Id Empty");
+
             User user = _userRepository.GetById(Guid.Parse(id));
 
             if (user == null)
@@ -92,6 +98,9 @@ namespace Template.Application.Service
 
         public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel userRequest)
         {
+            if (string.IsNullOrWhiteSpace(userRequest.Password) || string.IsNullOrWhiteSpace(userRequest.Mail))
+                throw new Exception("Email/Password are requeried");
+
             User user = _userRepository.Find(x => x.DeletionDate == null && x.Mail.ToLower() == userRequest.Mail.ToLower());
 
             if(user == null)

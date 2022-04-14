@@ -33,5 +33,29 @@ namespace Template.Application.Tests.Service
 
             Assert.Equal(Exceptions.Ex0003, exception.Message);
         }
+
+        [Fact]
+        public void Delete_SendingEmptyGuid()
+        {
+            var exception = Assert.Throws<Exception>(() => _userService.Delete(""));
+
+            Assert.Equal("Id Empty", exception.Message);
+        }
+
+        [Fact]
+        public void Put_SendingEmptyGuid()
+        {
+            Exception exception = Assert.Throws<Exception>(() => _userService.Put(new UserViewModel()));
+
+            Assert.Equal(Exceptions.Ex0003, exception.Message);
+        }
+
+        [Fact]
+        public void Authenticate_SendingEmptyValues()
+        {
+            Exception exception = Assert.Throws<Exception>(() => _userService.Authenticate(new UserAuthenticateRequestViewModel()));
+            
+            Assert.Equal("Email/Password are requeried", exception.Message);
+        }
     }
 }
