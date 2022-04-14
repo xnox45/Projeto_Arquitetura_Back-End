@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Template.Application.Interface;
 using Template.Application.ViewModel;
 using Template.Auth.Services;
@@ -46,6 +47,8 @@ namespace Template.Application.Service
 
             if (model.Id != Guid.Empty)
                 throw new Exception(Exceptions.Ex0004);
+
+            Validator.ValidateObject(model, new ValidationContext(model), true);
 
             User user = _mapper.Map<User>(model);
 

@@ -41,9 +41,10 @@ namespace Api.Project.Controllers
         [HttpPost, AllowAnonymous]
         public IActionResult Post(UserViewModel model)
         {
-            bool result = this._userService.Post(model);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return Ok(result.ToString() + "\nUsuario salvo");
+            return Ok(this._userService.Post(model) + "\nUsuario salvo");
         }
 
         [HttpGet("{id}")] //Permiti passar parametro para um metodo get
