@@ -25,7 +25,7 @@ namespace Template.Web.Controllers
             this._context = context;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult Get()
         {
             try

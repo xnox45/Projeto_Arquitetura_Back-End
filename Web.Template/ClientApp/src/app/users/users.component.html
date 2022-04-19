@@ -1,1 +1,19 @@
-<p>users works</p>
+<p>Users ({{users?.length}})</p><!--definindo quantos usuarios tem na tabela, o "?" é para que caso venha Undefined ou null não ocorrer nenhum erro-->
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users"><!--Declarando para que o angular ja faça a construção da tabela sozinho ((let user of users): para cada usuario em usuarios faça o seguinte)-->
+      <th scope="row">{{user.name}}</th>
+      <td>{{user.mail}}</td>
+      <td><button class="btn-primary">Custom</button></td>
+    </tr>
+  </tbody>
+</table>

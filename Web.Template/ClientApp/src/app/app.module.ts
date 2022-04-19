@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
+import { UserDataService } from './_data-service/user_data-service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { UsersComponent } from './users/users.component';
       { path: 'users', component: UsersComponent },//rota para users
     ])
   ],
-  providers: [],
+  providers: [UserDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
