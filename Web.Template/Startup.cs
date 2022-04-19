@@ -17,7 +17,7 @@ using Template.Auth.Models;
 using Template.Data.Context;
 using Template.IoC;
 
-namespace Template.Web
+namespace Web.Template
 {
     public class Startup
     {

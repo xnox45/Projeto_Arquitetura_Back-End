@@ -1,6 +1,6 @@
 using System;
 
-namespace Template.Web
+namespace Web.Template
 {
     public class WeatherForecast
     {
