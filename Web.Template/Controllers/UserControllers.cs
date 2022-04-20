@@ -44,7 +44,7 @@ namespace Template.Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(this._userService.Post(model) + "\nUsuario salvo");
+            return Ok(this._userService.Post(model));
         }
 
         [HttpGet("{id}")] //Permiti passar parametro para um metodo get

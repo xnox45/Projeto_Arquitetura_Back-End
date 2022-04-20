@@ -1,19 +1,42 @@
-<p>Users ({{users?.length}})</p><!--definindo quantos usuarios tem na tabela, o "?" é para que caso venha Undefined ou null não ocorrer nenhum erro-->
+<div *ngIf="showList">
+  <!--(*ngIf) é como se fosse um if no angular, exemplo: if(showList == true) show table-->
+  <p>Usuários ({{users?.length}})</p><!--definindo quantos usuarios tem na tabela, o "?" é para que caso venha Undefined ou null não ocorrer nenhum erro-->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <!--Declarando para que o angular ja faça a construção da tabela sozinho ((let user of users): para cada usuario em usuarios faça o seguinte)-->
+        <th scope="row">{{user.name}}</th>
+        <td>{{user.mail}}</td>
+        <td><button class="btn-primary" id="{{user.id}}">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users"><!--Declarando para que o angular ja faça a construção da tabela sozinho ((let user of users): para cada usuario em usuarios faça o seguinte)-->
-      <th scope="row">{{user.name}}</th>
-      <td>{{user.mail}}</td>
-      <td><button class="btn-primary">Custom</button></td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!showList">
+  <form>
+    <h5><strong>Adicionar Usuário:</strong></h5>
+    <div class="mb-3">
+      <label for="Name" class="form-label">Nome:</label>
+      <input class="form-control" placeholder="Nome" id="Name" aria-describedby="Name" [(ngModel)]="user.Name" name="Name"><!--[(ngModel)] é para passar os valores do inputa para a variavel no typeScript com angular, obs: a propriedade name tem que ter o valor igaul ao nome que está no model-->
+    </div>
+    <div class="mb-3">
+      <label for="InputEmail" class="form-label">Email:</label>
+      <input type="email" placeholder="Email" class="form-control" id="InputEmail" aria-describedby="emailHelp" [(ngModel)]="user.Mail" name="Mail">
+      <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
+    </div>
+    <div class="mb-3">
+      <label for="InputPassword" class="form-label">Senha:</label>
+      <input type="password" placeholder="Senha" class="form-control" id="InputPassword">
+    </div>
+    <button type="submit" (click)="post()" class="btn btn-primary">Adicionar</button>
+  </form>
+</div>
+<button class="btn-primary" style="margin-top: 25px;" (click)="showList = !showList">{{showList ? 'Novo Usuário' : 'Lista de Usuários'}}</button> <!--Fazendo com que o texto do botão mude dependendo do valor da variavel showList-->

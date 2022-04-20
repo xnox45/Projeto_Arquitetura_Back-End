@@ -10,8 +10,12 @@ export class UserDataService {
 
   }
 
-  get() {
+  Get() {
     return this._http.get(this.module);
+  }
+
+  Post(data) {
+    return this._http.post(this.module, data);
   }
 
 }
