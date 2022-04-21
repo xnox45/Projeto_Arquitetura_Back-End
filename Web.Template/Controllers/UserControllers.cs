@@ -63,7 +63,7 @@ namespace Template.Web.Controllers
             }
         } 
         
-        [HttpPut]
+        [HttpPut, AllowAnonymous]
         public IActionResult Update(UserViewModel model)
         {
             try

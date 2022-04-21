@@ -10,6 +10,8 @@ namespace Template.Domain.Interfaces
 
         TEntity Create(TEntity entity);
 
+        public bool Update(TEntity model);
+
         TEntity Find(Expression<Func<TEntity, bool>> where);
 
         public bool Delete(TEntity model);

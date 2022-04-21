@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { error } from 'console';
 import { UserDataService } from '../_data-service/user_data-service';
 
 @Component({
@@ -14,6 +13,12 @@ export class UsersComponent implements OnInit {
   user: any = {};
 
   showList: boolean = true;
+
+  showEdit: boolean = true;
+
+  textheader: string = "null";
+
+  textButton: string = "null";
 
   constructor(private userDataService: UserDataService) { }
 
@@ -39,10 +44,9 @@ export class UsersComponent implements OnInit {
       if (data == true) {
         alert("Usuário Cadastrado");
         this.get(); //Recarregando dados sem precisar atualizar toda a pagina
-        this.user = {}; // Limpando campos
       }
 
-      else{
+      else {
         alert("Erro a Cadastrar usuário");
       }
     },
@@ -51,6 +55,60 @@ export class UsersComponent implements OnInit {
         alert("Erro interno no sistema");
       }
     );
+  }
+
+  put() {
+    this.userDataService.Put(this.user).subscribe(data => {
+      if (data == true) {
+        alert("Usuário Atualizado");
+        this.get();
+      }
+      else {
+        alert("Erro a Atualizar usuário");
+      }
+    },
+      error => {
+        console.log(error);
+        alert("Erro interno no sistema");
+      }
+    )
+  }
+
+  save() {
+
+    console.log(this.user);
+
+    if (this.isKeyExists(this.user, "id")) {
+      this.put();
+    }
+
+    else {
+      this.post();
+    }
+
+  }
+
+  ShowAddUser() {
+    this.user = {}; // Limpando campos
+    this.showList = !this.showList;
+    this.textheader = 'Adicionar Usuário';
+    this.textButton = 'Adicionar';
+  }
+
+  openDetails(data) {
+    console.log(data);
+    this.showList = false;
+    this.user = data;
+    this.textheader = "Editar Usuário: " + data.name;
+    this.textButton = 'Confirmar';
+  }
+
+  isKeyExists(obj, key) {
+    if (obj[key] == undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

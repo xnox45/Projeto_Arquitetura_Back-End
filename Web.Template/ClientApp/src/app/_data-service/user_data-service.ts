@@ -18,4 +18,8 @@ export class UserDataService {
     return this._http.post(this.module, data);
   }
 
+  Put(data) {
+    return this._http.put(this.module, data);
+  }
+
 }
