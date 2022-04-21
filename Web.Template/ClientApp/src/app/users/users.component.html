@@ -1,3 +1,4 @@
+<button class="btn-primary" style="float: right" (click)="ShowAddUser()">{{showList ? 'Novo Usuário' : 'Lista de Usuários'}}</button> <!--Fazendo com que o texto do botão mude dependendo do valor da variavel showList-->
 <div *ngIf="showList">
   <!--(*ngIf) é como se fosse um if no angular, exemplo: if(showList == true) show table-->
   <p>Usuários ({{users?.length}})</p><!--definindo quantos usuarios tem na tabela, o "?" é para que caso venha Undefined ou null não ocorrer nenhum erro-->
@@ -39,5 +40,3 @@
     <button type="submit" (click)="save()" class="btn btn-primary">{{textButton}}</button>
   </form>
 </div>
-
-<button class="btn-primary" style="margin-top: 25px;" (click)="ShowAddUser()">{{showList ? 'Novo Usuário' : 'Lista de Usuários'}}</button> <!--Fazendo com que o texto do botão mude dependendo do valor da variavel showList-->
