@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable()//definindo que é uma classe injetavel em outras(eu acho)
@@ -20,6 +20,10 @@ export class UserDataService {
 
   Put(data) {
     return this._http.put(this.module, data);
+  }
+
+  Delete(data) {
+    return this._http.delete(this.module + '/' + data);//passando o id pela url
   }
 
 }

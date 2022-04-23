@@ -16,9 +16,9 @@ export class UsersComponent implements OnInit {
 
   showEdit: boolean = true;
 
-  textheader: string = "null";
+  textheader: string = "Adicionar Usuário";
 
-  textButton: string = "null";
+  textButton: string = "Adicionar";
 
   constructor(private userDataService: UserDataService) { }
 
@@ -78,6 +78,7 @@ export class UsersComponent implements OnInit {
 
     console.log(this.user);
 
+    //verificando se é edição ou criação de usuario
     if (this.isKeyExists(this.user, "id")) {
       this.put();
     }
@@ -88,11 +89,27 @@ export class UsersComponent implements OnInit {
 
   }
 
+  delete(id) {
+    console.log(id);
+
+    this.userDataService.Delete(id).subscribe(
+      data =>
+      {
+        console.log(data);
+        alert("Usuario deletado com sucesso");
+        this.get();
+      },
+      erro =>
+      {
+        console.log(erro);
+        alert("Erro interno no sistema");
+      }
+    );
+  }
+
   ShowAddUser() {
     this.user = {}; // Limpando campos
     this.showList = !this.showList;
-    this.textheader = 'Adicionar Usuário';
-    this.textButton = 'Adicionar';
   }
 
   openDetails(data) {
@@ -103,7 +120,7 @@ export class UsersComponent implements OnInit {
     this.textButton = 'Confirmar';
   }
 
-  isKeyExists(obj, key) {
+  isKeyExists(obj, key) {//verificando se a propriedade existe no objeto
     if (obj[key] == undefined) {
       return false;
     } else {

@@ -76,15 +76,15 @@ namespace Template.Web.Controllers
             }
         } 
         
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}"), AllowAnonymous]//fazendo com que receba o id pela url
+        public IActionResult Delete(string id)
         {
             try
             {
                 //Pegando o Id do usuario direto da requisição, informando qual arfimação eu quero passar(Informei que o Id da classe User é o ClaimTypes.NameIdentifier)
-                string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);//Pegando informações do token, como Id, email e etc
+                //string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);//Pegando informações do token, como Id, email e etc
                 
-                return Ok(_userService.Delete(userId));
+                return Ok(_userService.Delete(id));
             }
             catch (Exception ex)
             {
