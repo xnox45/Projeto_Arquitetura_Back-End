@@ -26,4 +26,8 @@ export class UserDataService {
     return this._http.delete(this.module + '/' + data);//passando o id pela url
   }
 
+  Authenticate(data) {
+    return this._http.post(this.module +"/"+ 'Auth', data)
+  }
+
 }

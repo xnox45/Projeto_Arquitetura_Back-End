@@ -12,6 +12,12 @@ export class UsersComponent implements OnInit {
 
   user: any = {};
 
+  userLogin: any = {};
+
+  userLogged: any = {};
+
+  isAuthenticated: boolean = false;
+
   showList: boolean = true;
 
   showEdit: boolean = true;
@@ -23,7 +29,6 @@ export class UsersComponent implements OnInit {
   constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
-    this.get();
   }
 
   get() {
@@ -75,9 +80,6 @@ export class UsersComponent implements OnInit {
   }
 
   save() {
-
-    console.log(this.user);
-
     //verificando se é edição ou criação de usuario
     if (this.isKeyExists(this.user, "id")) {
       this.put();
@@ -90,17 +92,32 @@ export class UsersComponent implements OnInit {
   }
 
   delete(id) {
-    console.log(id);
-
     this.userDataService.Delete(id).subscribe(
-      data =>
-      {
+      data => {
         console.log(data);
         alert("Usuario deletado com sucesso");
         this.get();
       },
-      erro =>
-      {
+      erro => {
+        console.log(erro);
+        alert("Erro interno no sistema");
+      }
+    );
+  }
+
+  authenticate() {
+    this.userDataService.Authenticate(this.userLogin).subscribe(
+      (data: any) => {
+        if (this.isKeyExists(data, "user")) {
+          localStorage.setItem('user_logged', JSON.stringify(data));//setando item no local storage para buscar futuramente
+          this.get();
+          this.getUserData();
+        }
+        else {
+          alert("usuario invalido")
+        }
+      },
+      erro => {
         console.log(erro);
         alert("Erro interno no sistema");
       }
@@ -118,6 +135,12 @@ export class UsersComponent implements OnInit {
     this.user = data;
     this.textheader = "Editar Usuário: " + data.name;
     this.textButton = 'Confirmar';
+  }
+
+  getUserData() {
+    this.userLogged = JSON.parse(localStorage.getItem('user_logged'));
+
+    this.isAuthenticated = this.userLogged != null;
   }
 
   isKeyExists(obj, key) {//verificando se a propriedade existe no objeto
