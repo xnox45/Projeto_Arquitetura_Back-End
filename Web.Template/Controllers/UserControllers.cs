@@ -25,7 +25,7 @@ namespace Template.Web.Controllers
             this._context = context;
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public IActionResult Get()
         {
             try
@@ -38,7 +38,7 @@ namespace Template.Web.Controllers
             }
         } 
         
-        [HttpPost, AllowAnonymous]
+        [HttpPost]
         public IActionResult Post(UserViewModel model)
         {
             if (!ModelState.IsValid)
@@ -76,15 +76,15 @@ namespace Template.Web.Controllers
             }
         } 
         
-        [HttpDelete("{id}"), AllowAnonymous]//fazendo com que receba o id pela url
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
             try
             {
                 //Pegando o Id do usuario direto da requisição, informando qual arfimação eu quero passar(Informei que o Id da classe User é o ClaimTypes.NameIdentifier)
-                //string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);//Pegando informações do token, como Id, email e etc
+                string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);//Pegando informações do token, como Id, email e etc
                 
-                return Ok(_userService.Delete(id));
+                return Ok(_userService.Delete(userId));
             }
             catch (Exception ex)
             {
