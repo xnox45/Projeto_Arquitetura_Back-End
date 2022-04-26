@@ -29,6 +29,7 @@ import { Interceptor } from './app.interceptor.module';
     Interceptor
   ],
   providers: [UserDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule { }

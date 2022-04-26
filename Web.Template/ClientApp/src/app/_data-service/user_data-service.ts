@@ -22,7 +22,7 @@ export class UserDataService {
     return this._http.put(this.module, data);
   }
 
-  Delete(data) {
+  Delete() {
     return this._http.delete(this.module);
   }
 

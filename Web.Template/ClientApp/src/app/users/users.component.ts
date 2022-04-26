@@ -26,6 +26,8 @@ export class UsersComponent implements OnInit {
 
   textButton: string = "Adicionar";
 
+  Token: any = {};
+
   constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class UsersComponent implements OnInit {
     this.userDataService.Get().subscribe(
       (data: any[]) => {
         this.users = data;
-        this.showList = true;//retronando para a tabela de usuários
+        this.showList = true;//retornando para a tabela de usuários
       },
       error => {
         console.log(error);
@@ -92,17 +94,23 @@ export class UsersComponent implements OnInit {
   }
 
   delete(id) {
-    this.userDataService.Delete(id).subscribe(
-      data => {
-        console.log(data);
-        alert("Usuario deletado com sucesso");
-        this.get();
-      },
-      erro => {
-        console.log(erro);
-        alert("Erro interno no sistema");
-      }
-    );
+    this.Token = JSON.parse(localStorage.getItem('user_logged'));
+    if (id == this.Token.user.id) {
+      this.userDataService.Delete().subscribe(
+        data => {
+          console.log(data);
+          alert("Usuario deletado com sucesso");
+          this.ShowLogin();
+        },
+        erro => {
+          console.log(erro);
+          alert("Erro interno no sistema");
+        }
+      );
+    }
+    else {
+      return alert("Você só pode excluir seu proprio usuário");
+    }
   }
 
   authenticate() {
@@ -122,6 +130,12 @@ export class UsersComponent implements OnInit {
         alert("Erro interno no sistema");
       }
     );
+  }
+
+  ShowLogin() {
+    this.userLogin = {};
+
+    this.isAuthenticated = false;
   }
 
   ShowAddUser() {
