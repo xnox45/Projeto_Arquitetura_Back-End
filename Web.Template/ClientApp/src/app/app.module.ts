@@ -10,13 +10,15 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { UserDataService } from './_data-service/user_data-service';
 import { Interceptor } from './app.interceptor.module';
+import { ModalinfoComponent } from './modalinfo/modalinfo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    UsersComponent
+    UsersComponent,
+    ModalinfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +32,6 @@ import { Interceptor } from './app.interceptor.module';
   ],
   providers: [UserDataService],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [ModalinfoComponent]
 })
 export class AppModule { }
