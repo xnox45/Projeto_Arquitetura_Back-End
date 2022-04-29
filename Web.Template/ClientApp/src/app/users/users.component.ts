@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AlertmodalComponent } from '../shared/alertmodal/alertmodal.component';
 import { UserDataService } from '../_data-service/user_data-service';
 
 @Component({
@@ -28,7 +30,9 @@ export class UsersComponent implements OnInit {
 
   Token: any = {};
 
-  constructor(private userDataService: UserDataService) { }
+  bsModalRef = new BsModalRef<AlertmodalComponent>();
+
+  constructor(private userDataService: UserDataService, private modalService: BsModalService) { }
 
   ngOnInit() {
   }
@@ -49,17 +53,17 @@ export class UsersComponent implements OnInit {
   post() {
     this.userDataService.Post(this.user).subscribe(data => { //data ja é o response
       if (data == true) {
-        alert("Usuário Cadastrado");
+        this.handlerSuccess("Usuário Cadastrado");
         this.get(); //Recarregando dados sem precisar atualizar toda a pagina
       }
 
       else {
-        alert("Erro a Cadastrar usuário");
+        this.handlerError("Erro a Cadastrar usuário");
       }
     },
       error => {
         console.log(error);
-        alert("Erro interno no sistema");
+        this.handlerError("Nenhum campo pode ser vazio");
       }
     );
   }
@@ -67,16 +71,16 @@ export class UsersComponent implements OnInit {
   put() {
     this.userDataService.Put(this.user).subscribe(data => {
       if (data == true) {
-        alert("Usuário Atualizado");
+        this.handlerSuccess("Usuário Atualizado");
         this.get();
       }
       else {
-        alert("Erro a Atualizar usuário");
+        this.handlerError("Erro a Atualizar usuário");
       }
     },
       error => {
         console.log(error);
-        alert("Erro interno no sistema");
+        this.handlerError("Erro interno no sistema");
       }
     )
   }
@@ -99,17 +103,17 @@ export class UsersComponent implements OnInit {
       this.userDataService.Delete().subscribe(
         data => {
           console.log(data);
-          alert("Usuario deletado com sucesso");
+          this.handlerSuccess("Usuario deletado com sucesso");
           this.ShowLogin();
         },
         erro => {
           console.log(erro);
-          alert("Erro interno no sistema");
+          this.handlerError("Erro interno no sistema");
         }
       );
     }
     else {
-      return alert("Você só pode excluir seu proprio usuário");
+      return this.handlerError("Você só pode excluir seu proprio usuário");
     }
   }
 
@@ -122,12 +126,12 @@ export class UsersComponent implements OnInit {
           this.getUserData();
         }
         else {
-          alert("usuario invalido")
+          this.handlerError("usuario invalido")
         }
       },
       erro => {
         console.log(erro);
-        alert("Erro interno no sistema");
+        this.handlerError(erro.error);
       }
     );
   }
@@ -165,4 +169,15 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  handlerError(message) {
+    this.bsModalRef = this.modalService.show(AlertmodalComponent);
+    this.bsModalRef.content.type = 'danger';
+    this.bsModalRef.content.message = message;
+  }
+
+  handlerSuccess(message) {
+    this.bsModalRef = this.modalService.show(AlertmodalComponent);
+    this.bsModalRef.content.type = 'success';
+    this.bsModalRef.content.message = message;
+  }
 }
